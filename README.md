@@ -1,2 +1,24 @@
 # Performance_Tracker
-Simple application to practice using SQL for web applications. Will track the performance of completed tasks and report the results over time.
+
+## Project Design
+This project is a performance tracker that will keep track of the type of tasks a user completed.
+The tracker will then be able to report back metrics on the data input.
+Examples of reports will be a line chart of the difficulty of tasks you complete, how much you have learned, etc.
+This data can be viewed over time, in to show the user progress over time.
+
+### Backend
+The backend will contain a PostreSQL instance (run on a docker image) containing the following features
+- date_completed (Date sql object)
+- activity_description (Text Description of the activity completed)
+- hours_spent (Float, representing the amount of time spent on the task)
+- difficulty (Number on a scale of 1-10 representing the difficulty of the task)
+- learning_score (Number on a scale of 1-10 representing how much was learned upon completing the task)
+
+### Frontend
+The frontend interface will be created using Next.js and will feature a page to input tasks, 
+and a page to view metrics based on the data gathered.
+
+
+### Current tasks
+- start to write api for the frontend to use
+
