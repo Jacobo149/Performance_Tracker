@@ -14,11 +14,19 @@ The backend will contain a PostreSQL instance (run on a docker image) containing
 - difficulty (Number on a scale of 1-10 representing the difficulty of the task)
 - learning_score (Number on a scale of 1-10 representing how much was learned upon completing the task)
 
+The backend will be fit with an API Server for handling all requests made from the frontend
+- Get all entries in the table: GET
+- Add a new entry to the table: POST
+- Delete an entry by entry ID: DELETE
+
 ### Frontend
-The frontend interface will be created using Next.js and will feature a page to input tasks, 
+The frontend interface will be created using Next.js featuring a page to input tasks, 
 and a page to view metrics based on the data gathered.
 
 
 ### Current tasks
-- start to write api for the frontend to use
-
+- Setup Next.js
+- Create entry input page
+- Add unit testing for entry input page
+- Create metrics page
+- Add unit testing for metrics page

@@ -13,7 +13,8 @@ const client = new Client({
 
 // Define the table query
 const createTableQuery = `
-CREATE TABLE IF NOT EXISTS performance_tracker (
+CREATE TABLE performance_tracker (
+    id SERIAL PRIMARY KEY,
     date_completed DATE,
     task_description TEXT,
     hours_spent FLOAT,
