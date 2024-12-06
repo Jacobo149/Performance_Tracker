@@ -94,6 +94,42 @@ const GoalTracker = () => {
     setErrorMessage(null);
   };
 
+  const handleExportData = () => {
+    axios
+      .get('/performance')
+      .then((response) => {
+        const data = response.data;
+  
+        // Convert the data into CSV format
+        const header = ['id', 'date_completed', 'task_description', 'hours_spent', 'difficulty', 'learning_score'];
+        const rows = data.map((item: PerformanceData) => [
+          item.id,
+          item.date_completed,
+          item.task_description,
+          item.hours_spent,
+          item.difficulty,
+          item.learning_score,
+        ]);
+  
+        // Combine header and rows into a CSV string
+        const csvContent = [
+          header.join(','), // Join the header fields with commas
+          ...rows.map((row: any[]) => row.join(',')) // Join the rows with commas
+        ].join('\n'); // Join all lines with newline
+  
+        // Create a Blob from the CSV string
+        const blob = new Blob([csvContent], { type: 'text/csv' });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'performance_data.csv';
+        a.click();
+      })
+      .catch((error) => {
+        console.error('Error exporting data:', error);
+      });
+  };
+
   return (
     <div>
       <Navbar />
@@ -138,7 +174,12 @@ const GoalTracker = () => {
           <h2 className="text-xl font-semibold mb-4">Progress Chart</h2>
           <Line data={chartData} options={chartOptions} />
         </div>
-
+            <button 
+            onClick={handleExportData}
+            className = "px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+            >
+                Export Data
+                </button>
       </div>
     </div>
   );
