@@ -86,6 +86,10 @@ const Home = () => {
         Go To Add Entry
       </Link>
 
+      <Link href="/delete_entry" className="text-blue-500 underline mb-4 block">
+        Go To Delete Entry
+      </Link>
+
       <div className="mb-8">
         <h2 className="text-xl font-semibold">Performance Chart</h2>
         <Line data={chartData} options={chartOptions} />
@@ -94,7 +98,7 @@ const Home = () => {
       <ul className="space-y-2">
         {performanceData.map((entry) => (
           <li key={entry.id} className="border p-2 rounded">
-            <strong>{entry.task_description}</strong>: {entry.date_completed.slice(0, 10)}, {entry.hours_spent} hours, difficulty {entry.difficulty}, learning score {entry.learning_score}
+            {entry.id} <strong>{entry.task_description}</strong>: {entry.date_completed.slice(0, 10)}, {entry.hours_spent} hours, difficulty {entry.difficulty}, learning score {entry.learning_score}
           </li>
         ))}
       </ul>
