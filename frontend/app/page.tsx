@@ -2,8 +2,9 @@
 
 import { useState, useEffect } from 'react';
 import axios from '../utils/axios'; // Axios instance
-import Link from 'next/link';
 import { Line } from 'react-chartjs-2';
+import Navbar from './Navbar'; // Import the Navbar component
+
 import {
   Chart as ChartJS,
   LineElement,
@@ -79,29 +80,23 @@ const Home = () => {
   };
 
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Performance Tracker</h1>
+    <div>
+      <Navbar /> {/* Include the Navbar */}
+      <div className="container mx-auto p-4">
 
-      <Link href="/add_entry" className="text-blue-500 underline mb-4 block">
-        Go To Add Entry
-      </Link>
+        <div className="mb-8">
+          <h2 className="text-xl font-semibold">Performance Chart</h2>
+          <Line data={chartData} options={chartOptions} />
+        </div>
 
-      <Link href="/delete_entry" className="text-blue-500 underline mb-4 block">
-        Go To Delete Entry
-      </Link>
-
-      <div className="mb-8">
-        <h2 className="text-xl font-semibold">Performance Chart</h2>
-        <Line data={chartData} options={chartOptions} />
+        <ul className="space-y-2">
+          {performanceData.map((entry) => (
+            <li key={entry.id} className="border p-2 rounded">
+              {entry.id} <strong>{entry.task_description}</strong>: {entry.date_completed.slice(0, 10)}, {entry.hours_spent} hours, difficulty {entry.difficulty}, learning score {entry.learning_score}
+            </li>
+          ))}
+        </ul>
       </div>
-
-      <ul className="space-y-2">
-        {performanceData.map((entry) => (
-          <li key={entry.id} className="border p-2 rounded">
-            {entry.id} <strong>{entry.task_description}</strong>: {entry.date_completed.slice(0, 10)}, {entry.hours_spent} hours, difficulty {entry.difficulty}, learning score {entry.learning_score}
-          </li>
-        ))}
-      </ul>
     </div>
   );
 };

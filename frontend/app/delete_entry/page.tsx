@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import axios from '../../utils/axios'; // Axios instance
+import Navbar from '../Navbar';
 
 // Define a type for the performance data
 interface PerformanceData {
@@ -52,52 +53,55 @@ const DeleteEntry = () => {
   };
 
   return (
-    <div className="container mx-auto p-4 max-w-2xl">
-      <h1 className="text-2xl font-bold mb-4">Delete a Performance Entry</h1>
+    <div>
+        <Navbar />
+        <div className="container mx-auto p-4 max-w-2xl">
+        <h1 className="text-2xl font-bold mb-4">Delete a Performance Entry</h1>
 
-      <div className="mb-6">
-        <label htmlFor="deleteId" className="block text-sm font-medium text-gray-700 mb-2">
-          Enter the ID of the entry to delete:
-        </label>
-        <div className="flex items-center gap-2">
-          <input
-            type="text"
-            id="deleteId"
-            value={deleteId}
-            onChange={(e) => setDeleteId(e.target.value)}
-            className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-            placeholder="e.g., 1"
-          />
-          <button
-            onClick={handleDelete}
-            className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
-          >
-            Delete
-          </button>
+        <div className="mb-6">
+            <label htmlFor="deleteId" className="block text-sm font-medium text-gray-700 mb-2">
+            Enter the ID of the entry to delete:
+            </label>
+            <div className="flex items-center gap-2">
+            <input
+                type="text"
+                id="deleteId"
+                value={deleteId}
+                onChange={(e) => setDeleteId(e.target.value)}
+                className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                placeholder="e.g., 1"
+            />
+            <button
+                onClick={handleDelete}
+                className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+            >
+                Delete
+            </button>
+            </div>
+            {errorMessage && <p className="text-red-500 text-sm mt-2">{errorMessage}</p>}
         </div>
-        {errorMessage && <p className="text-red-500 text-sm mt-2">{errorMessage}</p>}
-      </div>
 
-      <h2 className="text-xl font-semibold mb-4">Existing Entries</h2>
-      <ul className="space-y-2">
-        {performanceData.map((entry) => (
-          <li key={entry.id} className="border p-2 rounded shadow-sm bg-gray-50">
-            <div className="text-sm">
-              <strong>ID:</strong> {entry.id}
-            </div>
-            <div>
-              <strong>Task:</strong> {entry.task_description}
-            </div>
-            <div className="text-sm">
-              <strong>Date:</strong> {entry.date_completed.slice(0, 10)}
-            </div>
-            <div className="text-sm">
-              <strong>Hours:</strong> {entry.hours_spent}, <strong>Difficulty:</strong>{' '}
-              {entry.difficulty}, <strong>Learning Score:</strong> {entry.learning_score}
-            </div>
-          </li>
-        ))}
-      </ul>
+        <h2 className="text-xl font-semibold mb-4">Existing Entries</h2>
+        <ul className="space-y-2">
+            {performanceData.map((entry) => (
+            <li key={entry.id} className="border p-2 rounded shadow-sm bg-gray-50">
+                <div className="text-sm">
+                <strong>ID:</strong> {entry.id}
+                </div>
+                <div>
+                <strong>Task:</strong> {entry.task_description}
+                </div>
+                <div className="text-sm">
+                <strong>Date:</strong> {entry.date_completed.slice(0, 10)}
+                </div>
+                <div className="text-sm">
+                <strong>Hours:</strong> {entry.hours_spent}, <strong>Difficulty:</strong>{' '}
+                {entry.difficulty}, <strong>Learning Score:</strong> {entry.learning_score}
+                </div>
+            </li>
+            ))}
+        </ul>
+        </div>
     </div>
   );
 };
