@@ -107,12 +107,25 @@ const Home = () => {
           <Line data={chartData} options={chartOptions} />
         </div>
 
+        <h2 className="text-xl font-semibold mb-4"> Completed Entries</h2>
         <ul className="space-y-2">
-          {performanceData.map((entry) => (
-            <li key={entry.id} className="border p-2 rounded">
-              {entry.id} <strong>{entry.task_description}</strong>: {entry.date_completed.slice(0, 10)}, {entry.hours_spent} hours, difficulty {entry.difficulty}, learning score {entry.learning_score}
+            {performanceData.map((entry) => (
+            <li key={entry.id} className="border p-2 rounded shadow-sm bg-gray-50">
+                <div className="text-sm">
+                <strong>ID:</strong> {entry.id}
+                </div>
+                <div>
+                <strong>Task:</strong> {entry.task_description}
+                </div>
+                <div className="text-sm">
+                <strong>Date:</strong> {entry.date_completed.slice(0, 10)}
+                </div>
+                <div className="text-sm">
+                <strong>Hours:</strong> {entry.hours_spent}, <strong>Difficulty:</strong>{' '}
+                {entry.difficulty}, <strong>Learning Score:</strong> {entry.learning_score}
+                </div>
             </li>
-          ))}
+            ))}
         </ul>
       </div>
     </div>
