@@ -25,8 +25,4 @@ and a page to view metrics based on the data gathered.
 
 
 ### Current tasks
-- Setup Next.js
-- Create entry input page
-- Add unit testing for entry input page
-- Create metrics page
-- Add unit testing for metrics page
+- Testing

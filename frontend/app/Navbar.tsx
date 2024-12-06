@@ -23,6 +23,11 @@ const Navbar = () => {
               Delete Entry
             </Link>
           </li>
+          <li>
+            <Link href="/goals" className="hover:text-blue-300">
+              Goals
+            </Link>
+          </li>
         </ul>
       </div>
     </nav>
