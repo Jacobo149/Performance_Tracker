@@ -47,27 +47,40 @@ const Home = () => {
     return new Date(a.date_completed).getTime() - new Date(b.date_completed).getTime();
   });
 
+  // Combine data that has the same date
+  const combinedData: PerformanceData[] = [];
+  sortedData.forEach((entry) => {
+    const existingEntry = combinedData.find((item) => item.date_completed === entry.date_completed);
+    if (existingEntry) {
+      existingEntry.hours_spent += entry.hours_spent;
+      existingEntry.difficulty += entry.difficulty;
+      existingEntry.learning_score += entry.learning_score;
+    } else {
+      combinedData.push({ ...entry });
+    }
+  });
+
   // Prepare chart data
   const chartData = {
-    labels: sortedData.map((entry) => entry.date_completed.slice(0, 10)), // Dates
+    labels: combinedData.map((entry) => entry.date_completed.slice(0, 10)), // Dates
     datasets: [
       {
         label: 'Difficulty',
-        data: sortedData.map((entry) => entry.difficulty),
+        data: combinedData.map((entry) => entry.difficulty),
         borderColor: 'rgba(75, 192, 192, 1)',
         backgroundColor: 'rgba(75, 192, 192, 0.2)',
         tension: 0.4,
       },
       {
         label: 'Hours Spent',
-        data: sortedData.map((entry) => entry.hours_spent),
+        data: combinedData.map((entry) => entry.hours_spent),
         borderColor: 'rgba(153, 102, 255, 1)',
         backgroundColor: 'rgba(153, 102, 255, 0.2)',
         tension: 0.4,
       },
       {
         label: 'Learning Score',
-        data: sortedData.map((entry) => entry.learning_score),
+        data: combinedData.map((entry) => entry.learning_score),
         borderColor: 'rgba(255, 159, 64, 1)',
         backgroundColor: 'rgba(255, 159, 64, 0.2)',
         tension: 0.4,
