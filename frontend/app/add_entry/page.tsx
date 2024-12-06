@@ -42,47 +42,68 @@ const AddEntry = () => {
   };
 
   return (
+    <div className="max-w-xl mx-auto p-4 bg-gray-100 shadow-md rounded-md">
+  <h1 className="text-2xl font-bold mb-4">Add a New Performance Entry</h1>
+  <form onSubmit={handleSubmit} className="space-y-4">
     <div>
-      <h1>Add a New Performance Entry</h1>
-      <form onSubmit={handleSubmit}>
-        <label>Date Completed</label>
-        <input
-          type="date"
-          name="date_completed"
-          value={formData.date_completed}
-          onChange={handleInputChange}
-        />
-        <label>Task Description</label>
-        <input
-          type="text"
-          name="task_description"
-          value={formData.task_description}
-          onChange={handleInputChange}
-        />
-        <label>Hours Spent</label>
-        <input
-          type="number"
-          name="hours_spent"
-          value={formData.hours_spent}
-          onChange={handleInputChange}
-        />
-        <label>Difficulty</label>
-        <input
-          type="number"
-          name="difficulty"
-          value={formData.difficulty}
-          onChange={handleInputChange}
-        />
-        <label>Learning Score</label>
-        <input
-          type="number"
-          name="learning_score"
-          value={formData.learning_score}
-          onChange={handleInputChange}
-        />
-        <button type="submit">Add Entry</button>
-      </form>
+      <label className="block text-sm font-medium">Date Completed</label>
+      <input
+        type="date"
+        name="date_completed"
+        value={formData.date_completed}
+        onChange={handleInputChange}
+        className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+      />
     </div>
+    <div>
+      <label className="block text-sm font-medium">Task Description</label>
+      <input
+        type="text"
+        name="task_description"
+        value={formData.task_description}
+        onChange={handleInputChange}
+        className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+      />
+    </div>
+    <div>
+      <label className="block text-sm font-medium">Hours Spent</label>
+      <input
+        type="number"
+        name="hours_spent"
+        value={formData.hours_spent}
+        onChange={handleInputChange}
+        className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+      />
+    </div>
+    <div>
+      <label className="block text-sm font-medium">Difficulty</label>
+      <input
+        type="number"
+        name="difficulty"
+        value={formData.difficulty}
+        onChange={handleInputChange}
+        className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+      />
+    </div>
+    <div>
+      <label className="block text-sm font-medium">Learning Score</label>
+      <input
+        type="number"
+        name="learning_score"
+        value={formData.learning_score}
+        onChange={handleInputChange}
+        className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+      />
+    </div>
+    <button
+      type="submit"
+      className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+    >
+      Add Entry
+    </button>
+  </form>
+</div>
+
   );
 };
 
