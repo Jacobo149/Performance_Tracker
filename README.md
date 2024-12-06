@@ -27,4 +27,4 @@ and a page to view metrics based on the data gathered.
 ### Current tasks
 - Testing
 - Make it to Set Goal only changes when the button is pushed
-- Make performance chart display data ordered by date
+- Make performance chart combine data from the same date

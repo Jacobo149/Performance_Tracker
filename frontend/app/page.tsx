@@ -42,27 +42,32 @@ const Home = () => {
       });
   }, []);
 
+  // Order the data by date
+  const sortedData = performanceData.sort((a, b) => {
+    return new Date(a.date_completed).getTime() - new Date(b.date_completed).getTime();
+  });
+
   // Prepare chart data
   const chartData = {
-    labels: performanceData.map((entry) => entry.date_completed.slice(0, 10)), // Dates
+    labels: sortedData.map((entry) => entry.date_completed.slice(0, 10)), // Dates
     datasets: [
       {
         label: 'Difficulty',
-        data: performanceData.map((entry) => entry.difficulty),
+        data: sortedData.map((entry) => entry.difficulty),
         borderColor: 'rgba(75, 192, 192, 1)',
         backgroundColor: 'rgba(75, 192, 192, 0.2)',
         tension: 0.4,
       },
       {
         label: 'Hours Spent',
-        data: performanceData.map((entry) => entry.hours_spent),
+        data: sortedData.map((entry) => entry.hours_spent),
         borderColor: 'rgba(153, 102, 255, 1)',
         backgroundColor: 'rgba(153, 102, 255, 0.2)',
         tension: 0.4,
       },
       {
         label: 'Learning Score',
-        data: performanceData.map((entry) => entry.learning_score),
+        data: sortedData.map((entry) => entry.learning_score),
         borderColor: 'rgba(255, 159, 64, 1)',
         backgroundColor: 'rgba(255, 159, 64, 0.2)',
         tension: 0.4,
