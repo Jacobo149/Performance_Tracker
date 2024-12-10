@@ -29,6 +29,7 @@ interface PerformanceData {
 const GoalTracker = () => {
   const [performanceData, setPerformanceData] = useState<PerformanceData[]>([]);
   const [goal, setGoal] = useState<number | null>(null);
+  const [inputGoal, setInputGoal] = useState<number | string>(''); // Track input value separately
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   useEffect(() => {
@@ -41,24 +42,26 @@ const GoalTracker = () => {
       .catch((error) => {
         console.error('Error fetching data:', error);
       });
+
+    // Retrieve the goal from localStorage on page load
+    const storedGoal = localStorage.getItem('goal');
+    if (storedGoal) {
+      setGoal(Number(storedGoal)); // Convert string to number
+    }
   }, []);
 
   // Calculate running total of hours spent
   const runningTotalHours = performanceData.reduce((acc, entry, index) => {
-    // Add the current entry's hours to the previous total
     const newTotal = (acc[index - 1] || 0) + entry.hours_spent;
     return [...acc, newTotal];
   }, [] as number[]);
 
-  // Calculate the total hours spent (used for progress calculation)
   const totalHours = runningTotalHours[runningTotalHours.length - 1] || 0;
-
-  // Calculate progress percentage
   const progressPercentage = goal ? Math.min((totalHours / goal) * 100, 100) : 0;
 
   // Chart Data
   const chartData = {
-    labels: performanceData.map((entry) => entry.date_completed.slice(0, 10)), // Dates
+    labels: performanceData.map((entry) => entry.date_completed.slice(0, 10)),
     datasets: [
       {
         label: 'Cumulative Hours Spent',
@@ -87,11 +90,14 @@ const GoalTracker = () => {
   };
 
   const handleSetGoal = () => {
-    if (!goal || goal <= 0) {
+    if (!inputGoal || inputGoal <= 0) {
       setErrorMessage('Please enter a valid positive goal.');
       return;
     }
-    setErrorMessage(null);
+    setGoal(inputGoal);
+    localStorage.setItem('goal', inputGoal.toString()); // Store goal in localStorage
+    setInputGoal(''); // Clear the input field
+    setErrorMessage(null); // Clear error message
   };
 
   const handleExportData = () => {
@@ -99,8 +105,7 @@ const GoalTracker = () => {
       .get('/performance')
       .then((response) => {
         const data = response.data;
-  
-        // Convert the data into CSV format
+
         const header = ['id', 'date_completed', 'task_description', 'hours_spent', 'difficulty', 'learning_score'];
         const rows = data.map((item: PerformanceData) => [
           item.id,
@@ -110,14 +115,12 @@ const GoalTracker = () => {
           item.difficulty,
           item.learning_score,
         ]);
-  
-        // Combine header and rows into a CSV string
+
         const csvContent = [
-          header.join(','), // Join the header fields with commas
-          ...rows.map((row: any[]) => row.join(',')) // Join the rows with commas
-        ].join('\n'); // Join all lines with newline
-  
-        // Create a Blob from the CSV string
+          header.join(','),
+          ...rows.map((row: any[]) => row.join(','))
+        ].join('\n');
+
         const blob = new Blob([csvContent], { type: 'text/csv' });
         const url = window.URL.createObjectURL(blob);
         const a = document.createElement('a');
@@ -145,8 +148,8 @@ const GoalTracker = () => {
             <input
               type="number"
               id="goal"
-              value={goal || ''}
-              onChange={(e) => setGoal(parseInt(e.target.value, 10))}
+              value={inputGoal || ''}
+              onChange={(e) => setInputGoal(parseInt(e.target.value, 10))}
               className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
               placeholder="e.g., 50"
             />
@@ -174,12 +177,13 @@ const GoalTracker = () => {
           <h2 className="text-xl font-semibold mb-4">Progress Chart</h2>
           <Line data={chartData} options={chartOptions} />
         </div>
-            <button 
-            onClick={handleExportData}
-            className = "px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-            >
-                Export Data
-                </button>
+
+        <button 
+          onClick={handleExportData}
+          className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+        >
+          Export Data
+        </button>
       </div>
     </div>
   );
