@@ -90,11 +90,11 @@ const GoalTracker = () => {
   };
 
   const handleSetGoal = () => {
-    if (!inputGoal || inputGoal <= 0) {
+    if (!inputGoal || Number(inputGoal) <= 0) {
       setErrorMessage('Please enter a valid positive goal.');
       return;
     }
-    setGoal(inputGoal);
+    setGoal(Number(inputGoal));
     localStorage.setItem('goal', inputGoal.toString()); // Store goal in localStorage
     setInputGoal(''); // Clear the input field
     setErrorMessage(null); // Clear error message
