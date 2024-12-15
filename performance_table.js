@@ -20,6 +20,7 @@ CREATE TABLE performance_tracker (
     hours_spent FLOAT,
     difficulty INTEGER,
     learning_score INTEGER
+    wellness_score INTEGER
 );
 `;
 

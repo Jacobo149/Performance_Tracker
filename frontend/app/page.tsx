@@ -25,6 +25,7 @@ interface PerformanceData {
   hours_spent: number;
   difficulty: number;
   learning_score: number;
+  wellness: number;
 }
 
 const Home = () => {
@@ -92,6 +93,17 @@ const Home = () => {
         backgroundColor: 'rgba(255, 159, 64, 0.2)',
         tension: 0.4,
       },
+      {
+        label: 'Wellness',
+        data: Object.keys(groupedData).map(
+          (date) =>
+            groupedData[date].reduce((sum, entry) => sum + entry.wellness, 0)
+        ),
+        borderColor: 'rgba(255, 159, 255, 1)',
+        backgroundColor: 'rgba(255, 159, 255, 0.2)',
+        tension: 0.4,
+      },
+
     ],
   };
 
@@ -156,7 +168,7 @@ const Home = () => {
                       </div>
                       <div className="text-sm">
                         <strong>Hours:</strong> {entry.hours_spent}, <strong>Difficulty:</strong>{' '}
-                        {entry.difficulty}, <strong>Learning Score:</strong> {entry.learning_score}
+                        {entry.difficulty}, <strong>Learning Score:</strong> {entry.learning_score}, <strong> Wellness:</strong> {entry.wellness}
                       </div>
                     </div>
                   ))}

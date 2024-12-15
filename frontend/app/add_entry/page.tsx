@@ -10,6 +10,7 @@ interface FormData {
   hours_spent: string;
   difficulty: string;
   learning_score: string;
+  wellness: string;
 }
 
 const AddEntry = () => {
@@ -19,6 +20,7 @@ const AddEntry = () => {
     hours_spent: '',
     difficulty: '',
     learning_score: '',
+    wellness: '',
   });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -94,6 +96,16 @@ const AddEntry = () => {
           type="number"
           name="learning_score"
           value={formData.learning_score}
+          onChange={handleInputChange}
+          className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+        />
+      </div>
+      <div>
+        <label className="block text-sm font-medium">Wellness</label>
+        <input
+          type="number"
+          name="wellness"
+          value={formData.wellness}
           onChange={handleInputChange}
           className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
         />

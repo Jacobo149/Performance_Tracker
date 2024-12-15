@@ -12,6 +12,7 @@ interface PerformanceData {
   hours_spent: number;
   difficulty: number;
   learning_score: number;
+  wellness: number;
 }
 
 const DeleteEntry = () => {
@@ -136,7 +137,7 @@ const DeleteEntry = () => {
                       </div>
                       <div className="text-sm">
                         <strong>Hours:</strong> {entry.hours_spent}, <strong>Difficulty:</strong>{' '}
-                        {entry.difficulty}, <strong>Learning Score:</strong> {entry.learning_score}
+                        {entry.difficulty}, <strong>Learning Score:</strong> {entry.learning_score}, <strong>Wellness:</strong> {entry.wellness}
                       </div>
                     </div>
                   ))}

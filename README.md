@@ -26,6 +26,5 @@ and a page to view metrics based on the data gathered.
 
 ### Current tasks
 - Testing
-- Make it to Set Goal only changes when the button is pushed
 - Improve UX
-- Add Field For Wellness
+- Update README

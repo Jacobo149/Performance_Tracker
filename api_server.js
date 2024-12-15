@@ -39,13 +39,13 @@ app.get('/performance', async (req, res) => {
 
 // Add a new entry
 app.post('/performance', async (req, res) => {
-    const { date_completed, task_description, hours_spent, difficulty, learning_score } = req.body;
+    const { date_completed, task_description, hours_spent, difficulty, learning_score, wellness } = req.body;
 
     try {
         const result = await client.query(
-            `INSERT INTO performance_tracker (date_completed, task_description, hours_spent, difficulty, learning_score)
-             VALUES ($1, $2, $3, $4, $5) RETURNING *`,
-            [date_completed, task_description, hours_spent, difficulty, learning_score]
+            `INSERT INTO performance_tracker (date_completed, task_description, hours_spent, difficulty, learning_score, wellness)
+             VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`,
+            [date_completed, task_description, hours_spent, difficulty, learning_score, wellness]
         );
         res.status(201).json(result.rows[0]);
     } catch (err) {

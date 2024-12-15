@@ -24,6 +24,7 @@ interface PerformanceData {
   hours_spent: number;
   difficulty: number;
   learning_score: number;
+  wellness: number;
 }
 
 const GoalTracker = () => {
@@ -106,7 +107,7 @@ const GoalTracker = () => {
       .then((response) => {
         const data = response.data;
 
-        const header = ['id', 'date_completed', 'task_description', 'hours_spent', 'difficulty', 'learning_score'];
+        const header = ['id', 'date_completed', 'task_description', 'hours_spent', 'difficulty', 'learning_score', 'wellness'];
         const rows = data.map((item: PerformanceData) => [
           item.id,
           item.date_completed,
@@ -114,6 +115,7 @@ const GoalTracker = () => {
           item.hours_spent,
           item.difficulty,
           item.learning_score,
+          item.wellness,
         ]);
 
         const csvContent = [
